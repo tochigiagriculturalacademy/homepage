@@ -48,10 +48,15 @@
     <!-- ヘッダー -->
     <header class="bg-white shadow-md sticky top-0 z-40">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <div class="flex flex-col">
-                <h1 class="text-2xl font-bold text-brand-green tracking-wide">栃木農業学院</h1>
-                <span class="text-xs text-brand-earth tracking-widest">TOCHIGI AGRICULTURAL ACADEMY</span>
+            <!-- ロゴエリア (画像追加) -->
+            <div class="flex items-center gap-3">
+                <img src="https://github.com/tochigiagriculturalacademy/homepage/blob/main/unnamed%20(1).jpg?raw=true" alt="栃木農業学院ロゴ" class="w-12 h-12 object-contain">
+                <div class="flex flex-col">
+                    <h1 class="text-2xl font-bold text-brand-green tracking-wide leading-none">栃木農業学院</h1>
+                    <span class="text-[10px] text-brand-earth tracking-widest leading-tight">TOCHIGI AGRICULTURAL ACADEMY</span>
+                </div>
             </div>
+
             <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-gray-600">
                 <a href="#about" class="hover:text-brand-green transition">学院について</a>
                 <a href="#courses" class="hover:text-brand-green transition">コース紹介</a>
@@ -371,15 +376,26 @@
     <section id="movie" class="py-12 bg-white">
         <div class="container mx-auto px-4 max-w-4xl text-center">
             <h3 class="text-2xl font-bold text-brand-green mb-8 font-maru">WEB学校説明会</h3>
-            <div class="relative w-full aspect-video bg-black rounded-xl overflow-hidden shadow-xl mb-4">
-                <div class="absolute inset-0 flex items-center justify-center bg-gray-800 text-white">
-                    <div class="text-center">
-                        <svg class="w-16 h-16 mx-auto mb-4 text-red-600" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                        <p class="font-bold text-lg">栃木農業学院 学校紹介ムービー (2026ver)</p>
-                        <p class="text-sm text-gray-400">YouTubeで再生</p>
+            
+            <!-- 動画サムネイルエリア (リンク付き) -->
+            <a href="https://youtu.be/sC7A0ed9oac" target="_blank" class="block group relative w-full aspect-video bg-black rounded-xl overflow-hidden shadow-xl mb-6">
+                <!-- サムネイル画像 (指定された画像) -->
+                <img src="https://github.com/tochigiagriculturalacademy/homepage/blob/main/Screenshot%202026-01-01%20231109.png?raw=true" alt="学校紹介ムービー サムネイル" class="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition duration-500">
+                
+                <!-- 再生ボタンオーバーレイ -->
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="bg-black/40 group-hover:bg-red-600/90 rounded-full p-4 transition duration-300 backdrop-blur-sm border-2 border-white/50">
+                        <svg class="w-10 h-10 text-white fill-current ml-1" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                     </div>
                 </div>
-            </div>
+                
+                <!-- テキストオーバーレイ -->
+                 <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 text-left text-white">
+                    <p class="font-bold text-lg md:text-xl drop-shadow-md">栃木農業学院 学校紹介ムービー (2026ver)</p>
+                    <p class="text-xs md:text-sm opacity-80 mt-1">クリックして再生</p>
+                </div>
+            </a>
+
              <a href="https://youtu.be/sC7A0ed9oac" target="_blank" class="inline-block text-brand-green border border-brand-green px-6 py-2 rounded-full hover:bg-brand-green hover:text-white transition">
                 YouTubeで動画を見る
             </a>
@@ -438,8 +454,13 @@
     <!-- フッター -->
     <footer id="access" class="bg-brand-green text-white py-12 pb-32 md:pb-12">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-2xl font-bold mb-2">栃木農業学院</h2>
-            <p class="text-brand-light text-sm mb-6">TOCHIGI AGRICULTURAL ACADEMY</p>
+            
+            <!-- フッターロゴエリア (画像追加) -->
+            <div class="flex flex-col items-center mb-6">
+                <img src="https://github.com/tochigiagriculturalacademy/homepage/blob/main/unnamed%20(1).jpg?raw=true" alt="栃木農業学院ロゴ" class="w-20 h-20 mb-4 rounded-lg bg-white p-1">
+                <h2 class="text-2xl font-bold mb-1">栃木農業学院</h2>
+                <p class="text-brand-light text-sm">TOCHIGI AGRICULTURAL ACADEMY</p>
+            </div>
             
             <div class="mb-8">
                 <p class="mb-1">〒320-09173 栃木県高根沢市山下部町（山側エリア）</p>
