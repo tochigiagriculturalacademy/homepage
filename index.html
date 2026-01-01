@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>栃木農業学院 | Tochigi Agricultural Academy</title>
-    <!-- Tailwind CSS (スタイリング用) -->
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts (日本語フォント) -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
@@ -20,6 +20,7 @@
                             light: '#B1D8B7', // 薄い緑
                             earth: '#8D7B68', // 土色
                             accent: '#F2A900', // 稲穂色
+                            line: '#06C755', // LINE Green
                         }
                     },
                     fontFamily: {
@@ -31,37 +32,15 @@
         }
     </script>
     <style>
-        /* スムーズスクロール */
-        html {
-            scroll-behavior: smooth;
-        }
-        /* 画像プレースホルダーのスタイル */
-        .img-placeholder {
-            background-color: #e5e7eb;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #4b5563;
-            text-align: center;
-            padding: 1rem;
-            border: 2px dashed #9ca3af;
-            font-size: 0.875rem;
-            width: 100%;
-            height: 100%;
-            min-height: 300px;
-        }
-        .hero-placeholder {
-            min-height: 600px;
-        }
-        
-        /* ポップアップのアニメーション */
+        html { scroll-behavior: smooth; }
         @keyframes float-in {
             from { transform: translateY(20px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
-        .float-banner {
-            animation: float-in 0.5s ease-out forwards;
-        }
+        .float-banner { animation: float-in 0.5s ease-out forwards; }
+        /* 写真のトランジション */
+        .hover-zoom img { transition: transform 0.5s ease; }
+        .hover-zoom:hover img { transform: scale(1.05); }
     </style>
 </head>
 <body class="font-sans text-gray-800 bg-gray-50 relative">
@@ -69,34 +48,27 @@
     <!-- ヘッダー -->
     <header class="bg-white shadow-md sticky top-0 z-40">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <!-- ロゴエリア -->
             <div class="flex flex-col">
                 <h1 class="text-2xl font-bold text-brand-green tracking-wide">栃木農業学院</h1>
                 <span class="text-xs text-brand-earth tracking-widest">TOCHIGI AGRICULTURAL ACADEMY</span>
             </div>
-
-            <!-- ナビゲーション（PC） -->
             <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-gray-600">
                 <a href="#about" class="hover:text-brand-green transition">学院について</a>
                 <a href="#courses" class="hover:text-brand-green transition">コース紹介</a>
                 <a href="#news" class="hover:text-brand-green transition">お知らせ</a>
                 <a href="#movie" class="hover:text-brand-green transition">説明会動画</a>
                 <a href="#contact" class="hover:text-brand-green transition">お問い合わせ</a>
-                <!-- ログインボタン -->
                 <button onclick="openLoginModal()" class="flex items-center space-x-1 bg-brand-green text-white px-4 py-2 rounded-full hover:bg-brand-earth transition shadow-sm">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                     <span>在学者・保護者ページ</span>
                 </button>
             </nav>
-
-            <!-- スマホメニューボタン -->
             <button id="menu-btn" class="md:hidden text-gray-600 focus:outline-none">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
                 </svg>
             </button>
         </div>
-        <!-- スマホメニュー -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t p-4 space-y-4 shadow-lg">
             <a href="#about" class="block text-gray-600">学院について</a>
             <a href="#courses" class="block text-gray-600">コース紹介</a>
@@ -109,20 +81,12 @@
         </div>
     </header>
 
-    <!-- メインビジュアル -->
-    <section class="relative w-full h-[600px] bg-gray-200">
-        <!-- 画像プレースホルダー -->
-        <div class="absolute inset-0 w-full h-full">
-            <div class="img-placeholder hero-placeholder bg-cover bg-center relative" style="background-image: url('placeholder-hero.jpg'); /* ここに画像を適用 */">
-                <div class="absolute inset-0 bg-black/40"></div> <!-- 写真を暗くするオーバーレイ -->
-                <div class="absolute inset-0 flex flex-col justify-center items-center z-10 p-4">
-                    <!-- ユーザーが生成する画像の説明 -->
-                    <p class="text-white/80 text-sm mb-4 border border-white/50 p-2 rounded bg-black/20">
-                        【画像配置場所：メインビジュアル】<br>
-                        プロンプト：青空の下、泥のついたつなぎを着て笑顔でトマトを持つ高校生くらいの生徒たち。<br>背景にはドローンが飛んでいる。明るく希望に満ちた雰囲気。
-                    </p>
-                </div>
-            </div>
+    <!-- メインビジュアル (トラクター) -->
+    <section class="relative w-full h-[600px] bg-gray-800 overflow-hidden group">
+        <!-- 背景画像 -->
+        <div class="absolute inset-0 w-full h-full bg-cover bg-center transition-transform duration-[20s] ease-linear group-hover:scale-110" 
+             style="background-image: url('https://www.free-materials.com/adm/wp-content/uploads/2021/05/0adpDSC_6011-.jpg');">
+            <div class="absolute inset-0 bg-black/40"></div>
         </div>
 
         <!-- キャッチコピー -->
@@ -141,64 +105,94 @@
 
     <!-- NEWS / お知らせ -->
     <section id="news" class="py-12 bg-white">
-        <div class="container mx-auto px-4 max-w-4xl">
-            <h3 class="text-2xl font-bold text-brand-green mb-6 border-l-4 border-brand-accent pl-4">NEWS / お知らせ</h3>
-            <ul class="space-y-4">
-                <li class="flex flex-col md:flex-row md:items-center border-b pb-4">
-                    <span class="text-sm text-white bg-brand-green px-2 py-1 rounded inline-block w-fit mb-2 md:mb-0 md:mr-4">2026.01.01</span>
-                    <span class="text-brand-earth font-bold text-sm mr-2">【お知らせ】</span>
-                    <a href="#" class="hover:underline text-gray-700">謹賀新年　本年も栃木農業学院をよろしくお願いいたします。</a>
-                </li>
-                <li class="flex flex-col md:flex-row md:items-center border-b pb-4">
-                    <span class="text-sm text-white bg-brand-green px-2 py-1 rounded inline-block w-fit mb-2 md:mb-0 md:mr-4">2025.12.20</span>
-                    <span class="text-brand-earth font-bold text-sm mr-2">【イベント】</span>
-                    <a href="#" class="hover:underline text-gray-700">冬季休業のお知らせ（12/28〜1/5）</a>
-                </li>
-                <li class="flex flex-col md:flex-row md:items-center border-b pb-4">
-                    <span class="text-sm text-white bg-brand-green px-2 py-1 rounded inline-block w-fit mb-2 md:mb-0 md:mr-4">2025.12.01</span>
-                    <span class="text-brand-earth font-bold text-sm mr-2">【みらい農業コース】</span>
-                    <a href="#" class="hover:underline text-gray-700">2026年度4月生 転入・編入相談会のご案内（不登校相談可）。</a>
-                </li>
-            </ul>
-        </div>
-    </section>
+        <div class="container mx-auto px-4 max-w-6xl">
+            <div class="flex flex-col md:flex-row gap-8">
+                <!-- 左側：ピックアップニュース (白人女性の写真) -->
+                <div class="md:w-1/3 w-full">
+                    <h3 class="text-xl font-bold text-brand-green mb-4 border-l-4 border-brand-accent pl-4">PICK UP</h3>
+                    <div class="bg-gray-50 rounded-lg overflow-hidden shadow-md hover-zoom group cursor-pointer">
+                        <div class="h-48 overflow-hidden relative">
+                            <img src="https://github.com/tochigiagriculturalacademy/homepage/blob/main/pexels-olly-1023397.jpg?raw=true" alt="オンライン講義の様子" class="w-full h-full object-cover object-top">
+                            <div class="absolute top-0 right-0 bg-red-500 text-white text-xs font-bold px-2 py-1">重要</div>
+                        </div>
+                        <div class="p-4">
+                            <p class="text-xs text-brand-green font-bold mb-2">2025.12.15 国際交流</p>
+                            <h4 class="font-bold text-sm leading-relaxed mb-2 group-hover:text-brand-green transition">
+                                【特別講義】米・オハイオ州立農業大学 スミス教授による「世界のアグリビジネス」オンライン登壇決定
+                            </h4>
+                            <p class="text-xs text-gray-500">
+                                グローバルな視点で農業を学ぶ特別プログラムの一環として、提携校よりゲスト講師をお招きします。
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
-    <!-- 説明会動画 (Youtube) -->
-    <section id="movie" class="py-12 bg-gray-50">
-        <div class="container mx-auto px-4 max-w-4xl text-center">
-            <h3 class="text-2xl font-bold text-brand-green mb-8 font-maru">WEB学校説明会</h3>
-            <div class="relative w-full aspect-video bg-black rounded-xl overflow-hidden shadow-xl mb-4">
-                <!-- YouTube埋め込みのダミー -->
-                <div class="absolute inset-0 flex items-center justify-center bg-gray-800 text-white">
-                    <div class="text-center">
-                        <svg class="w-16 h-16 mx-auto mb-4 text-red-600" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                        <p class="font-bold text-lg">栃木農業学院 学校紹介ムービー (2026ver)</p>
-                        <p class="text-sm text-gray-400">YouTubeで再生</p>
+                <!-- 右側：ニュースリスト -->
+                <div class="md:w-2/3 w-full">
+                    <h3 class="text-xl font-bold text-brand-green mb-4 border-l-4 border-brand-accent pl-4">NEWS</h3>
+                    <ul class="space-y-4">
+                        <li class="flex flex-col md:flex-row md:items-center border-b pb-4">
+                            <span class="text-sm text-white bg-brand-green px-2 py-1 rounded inline-block w-fit mb-2 md:mb-0 md:mr-4">2026.01.01</span>
+                            <span class="text-brand-earth font-bold text-sm mr-2">【お知らせ】</span>
+                            <a href="#" class="hover:underline text-gray-700">謹賀新年　本年も栃木農業学院をよろしくお願いいたします。</a>
+                        </li>
+                        <li class="flex flex-col md:flex-row md:items-center border-b pb-4">
+                            <span class="text-sm text-white bg-brand-green px-2 py-1 rounded inline-block w-fit mb-2 md:mb-0 md:mr-4">2025.12.20</span>
+                            <span class="text-brand-earth font-bold text-sm mr-2">【イベント】</span>
+                            <a href="#" class="hover:underline text-gray-700">冬季休業のお知らせ（12/28〜1/5）</a>
+                        </li>
+                        <li class="flex flex-col md:flex-row md:items-center border-b pb-4">
+                            <span class="text-sm text-white bg-brand-green px-2 py-1 rounded inline-block w-fit mb-2 md:mb-0 md:mr-4">2025.12.01</span>
+                            <span class="text-brand-earth font-bold text-sm mr-2">【みらい農業コース】</span>
+                            <a href="#" class="hover:underline text-gray-700">2026年度4月生 転入・編入相談会のご案内（不登校相談可）。</a>
+                        </li>
+                        <li class="flex flex-col md:flex-row md:items-center border-b pb-4">
+                            <span class="text-sm text-white bg-brand-green px-2 py-1 rounded inline-block w-fit mb-2 md:mb-0 md:mr-4">2025.11.15</span>
+                            <span class="text-brand-earth font-bold text-sm mr-2">【メディア】</span>
+                            <a href="#" class="hover:underline text-gray-700">地元ケーブルテレビにて、本校のドローン実習の様子が放映されました。</a>
+                        </li>
+                    </ul>
+                    <div class="text-right mt-4">
+                        <a href="#" class="text-xs text-brand-green border-b border-brand-green hover:opacity-70">ニュース一覧を見る &rarr;</a>
                     </div>
                 </div>
             </div>
-            <a href="https://www.youtube.com/" target="_blank" class="inline-block text-brand-green border border-brand-green px-6 py-2 rounded-full hover:bg-brand-green hover:text-white transition">
-                YouTubeチャンネルで見る
-            </a>
         </div>
     </section>
 
-    <!-- 学院長挨拶 -->
+    <!-- 学院について (ビニールハウス & 農地写真) -->
     <section id="about" class="py-16 bg-brand-light/20">
         <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row items-center gap-12 max-w-5xl mx-auto">
-                <!-- 学院長写真プレースホルダー -->
-                <div class="w-full md:w-1/3 h-80 shadow-xl rounded-lg overflow-hidden bg-gray-300">
-                    <div class="img-placeholder bg-gray-200">
-                         <p class="text-gray-500 text-sm">
-                            【画像配置場所：学院長写真】<br>
-                            プロンプト：有田哲生学院長（60代男性）、作業着姿またはラフなジャケット姿。<br>背景はビニールハウスや畑。優しく実直な表情。
-                        </p>
+            <div class="flex flex-col md:flex-row items-start gap-12 max-w-6xl mx-auto">
+                <!-- 左側：写真エリア -->
+                <div class="w-full md:w-1/2 space-y-6">
+                    <!-- メイン：ビニールハウス -->
+                    <div class="rounded-lg overflow-hidden shadow-xl">
+                        <img src="https://www.free-materials.com/adm/wp-content/uploads/2016/07/e39fac0a3d17aed2b4c1b3c0dc69f464.jpg" alt="学校のビニールハウス" class="w-full h-64 object-cover">
+                        <p class="bg-white p-2 text-xs text-center text-gray-500">最新の環境制御システムを導入した実習用ハウス</p>
+                    </div>
+                    
+                    <!-- サブ：所有農地 -->
+                    <div class="bg-white p-4 rounded-lg shadow-lg border-l-4 border-brand-earth">
+                        <div class="flex items-center gap-4 mb-2">
+                            <h4 class="font-bold text-brand-green">広大なキャンパス</h4>
+                            <span class="bg-brand-accent text-white text-[10px] px-2 py-0.5 rounded-full">圧倒的スケール</span>
+                        </div>
+                        <div class="flex gap-4">
+                            <img src="https://github.com/tochigiagriculturalacademy/homepage/blob/main/33917651_s.jpg?raw=true" alt="所有農地" class="w-32 h-24 object-cover rounded shadow-sm">
+                            <div class="text-sm">
+                                <p class="mb-1"><span class="font-bold text-lg">約15ヘクタール</span>の農地を保有。</p>
+                                <p class="text-gray-600 text-xs leading-relaxed">
+                                    その広さは<span class="font-bold text-brand-earth">東京ドーム約3.2個分</span>。<br>
+                                    一人ひとりが十分なスペースで、失敗を恐れずのびのびと技術を磨くことができます。
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- 挨拶テキスト -->
-                <div class="w-full md:w-2/3">
+                <!-- 右側：挨拶テキスト -->
+                <div class="w-full md:w-1/2">
                     <h3 class="text-3xl font-bold text-brand-green mb-6 font-maru">
                         「食べる」を作る、<br>一生モノの技術を。
                     </h3>
@@ -209,9 +203,11 @@
                         現代農業は「きつい・汚い」だけではありません。ドローンやIoTを活用したスマート農業、そして生産したものを加工・販売する6次産業化へと進化しています。
                     </p>
                     <p class="mb-4 leading-relaxed text-gray-700">
-                        当学院は小さな私設スクールですが、だからこそできる「マンツーマンの実習」で、現場で即戦力となる技術を叩き込みます。勉強が苦手でも構いません。ここには、机の上では学べない「生きる手応え」があります。
+                        当学院は小さな私設スクールですが、左記のような広大なフィールドとマンツーマンの実習で、現場で即戦力となる技術を叩き込みます。勉強が苦手でも構いません。ここには、机の上では学べない「生きる手応え」があります。
                     </p>
-                    <p class="mt-6 font-bold text-right text-lg">学院長　有田 哲生</p>
+                    <div class="mt-8 border-t pt-4">
+                         <p class="font-bold text-right text-lg">学院長　有田 哲生</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -228,32 +224,53 @@
             <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
                 
                 <!-- 本科 -->
-                <div class="border rounded-xl shadow-lg overflow-hidden bg-white group hover:shadow-2xl transition">
+                <div class="border rounded-xl shadow-lg overflow-hidden bg-white group hover:shadow-2xl transition flex flex-col">
                     <div class="bg-brand-green text-white p-4 text-center">
                         <span class="block text-sm opacity-80 mb-1">全日制・週5日</span>
                         <h4 class="text-2xl font-bold">1. 本科</h4>
                     </div>
-                    <div class="p-6">
+                    
+                    <!-- ドローン写真 -->
+                    <div class="h-48 overflow-hidden relative">
+                         <img src="https://github.com/tochigiagriculturalacademy/homepage/blob/main/33290093_m.jpg?raw=true" alt="農業用ドローン" class="w-full h-full object-cover object-[center_60%] group-hover:scale-105 transition duration-700">
+                         <div class="absolute bottom-0 left-0 bg-black/60 text-white text-xs px-3 py-1">スマート農業実習</div>
+                    </div>
+
+                    <div class="p-6 flex-grow flex flex-col">
                         <p class="text-center font-bold text-lg mb-4 text-gray-800">「現場で通用する腕」を磨く、<br>実践特化型コース</p>
                         
-                        <!-- 警告的注釈 -->
                         <div class="bg-yellow-50 border-l-4 border-yellow-400 p-3 mb-6 text-xs text-yellow-800">
                             ※本コースは職業訓練を主目的としており、高卒資格は取得できません。
                         </div>
 
-                        <div class="space-y-6">
+                        <div class="space-y-8">
                             <div>
                                 <h5 class="font-bold text-brand-green border-b border-gray-200 pb-1 mb-2">生産科学科</h5>
                                 <p class="text-sm text-gray-600 mb-2">米、野菜、果樹（栃木特産のイチゴ・梨など）の栽培管理を徹底的に習得します。</p>
                                 <div class="bg-gray-100 p-2 rounded text-xs">
-                                    <span class="font-bold">【目指せる資格】</span> 大型特殊自動車免許（農耕車限定）、ドローン操縦士<br>（※いずれも提携機関・外部講習を利用して取得）
+                                    <span class="font-bold">【目指せる資格】</span> 大型特殊自動車免許（農耕車限定）、ドローン操縦士
                                 </div>
                             </div>
                             <div>
-                                <h5 class="font-bold text-brand-green border-b border-gray-200 pb-1 mb-2">食品クリエイト科</h5>
-                                <p class="text-sm text-gray-600 mb-2">規格外野菜を活用した商品開発や食品加工を学びます。</p>
-                                <div class="bg-gray-100 p-2 rounded text-xs">
-                                    <span class="font-bold">【実績】</span> 生徒開発の「栃農カレー」「栃農ジャム」は、道の駅『どんぐりの里』にて好評委託販売中。
+                                <h5 class="font-bold text-brand-green border-b border-gray-200 pb-1 mb-4">食品クリエイト科</h5>
+                                <p class="text-sm text-gray-600 mb-4">規格外野菜を活用した商品開発や食品加工を学びます。</p>
+                                
+                                <!-- 実績（画像付き） -->
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="flex flex-col">
+                                        <div class="rounded overflow-hidden mb-1 h-24">
+                                            <img src="https://www.free-materials.com/adm/wp-content/uploads/2018/07/admDSC_9145-.jpg" alt="野菜カレー" class="w-full h-full object-cover hover:scale-110 transition">
+                                        </div>
+                                        <p class="text-xs font-bold text-gray-700">生徒開発「栃農カレー」</p>
+                                        <p class="text-[10px] text-gray-500">道の駅で好評販売中</p>
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <div class="rounded overflow-hidden mb-1 h-24">
+                                            <img src="https://www.free-materials.com/adm/wp-content/uploads/2023/07/adpIMG_1973-.jpg" alt="ホテルのビュッフェ" class="w-full h-full object-cover hover:scale-110 transition">
+                                        </div>
+                                        <p class="text-xs font-bold text-gray-700">ホテル納入実績あり</p>
+                                        <p class="text-[10px] text-gray-500">本校の野菜が近隣ホテルのビュッフェで使用されています</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -261,24 +278,21 @@
                 </div>
 
                 <!-- 通信部 -->
-                <div class="border rounded-xl shadow-lg overflow-hidden bg-white group hover:shadow-2xl transition">
+                <div class="border rounded-xl shadow-lg overflow-hidden bg-white group hover:shadow-2xl transition flex flex-col">
                     <div class="bg-brand-earth text-white p-4 text-center">
                         <span class="block text-sm opacity-80 mb-1">通信制高校サポート校・週1〜2日</span>
                         <h4 class="text-2xl font-bold">2. 通信部・みらい農業コース</h4>
                     </div>
-                    <div class="p-6">
-                        <p class="text-center font-bold text-lg mb-4 text-gray-800">高校卒業資格を目指しながら、<br>土に触れて心を整える</p>
-                        
-                        <div class="mb-6">
-                             <div class="img-placeholder h-40 bg-gray-100 rounded mb-4">
-                                <p class="text-xs text-gray-500">
-                                    【画像配置場所：通信部の様子】<br>
-                                    プロンプト：少人数でプランターの手入れをしている様子。<br>穏やかで優しい雰囲気。
-                                </p>
-                            </div>
-                        </div>
+                    
+                    <!-- 通信部のイメージ写真 -->
+                    <div class="h-48 overflow-hidden relative">
+                         <img src="https://www.free-materials.com/adm/wp-content/uploads/2020/06/adpDSC_5799-760x507-1.jpg" alt="通信制課程で学ぶ様子" class="w-full h-full object-cover object-top group-hover:scale-105 transition duration-700">
+                    </div>
 
-                        <div class="space-y-4">
+                    <div class="p-6 flex-grow flex flex-col">
+                        <p class="text-center font-bold text-lg mb-4 text-gray-800">高校卒業資格を目指しながら、<br>土に触れて心を整える</p>
+
+                        <div class="space-y-4 mb-6">
                             <div>
                                 <h5 class="font-bold text-sm text-gray-700">対象</h5>
                                 <p class="text-sm text-gray-600">中学卒業見込みの方、高校中退・転編入希望の方、不登校経験のある方</p>
@@ -292,6 +306,22 @@
                                 </ul>
                             </div>
                         </div>
+
+                        <!-- 社会人向け学び直しアピール -->
+                        <div class="mt-auto bg-gray-50 rounded-lg p-3 border border-gray-200">
+                            <div class="flex items-center gap-3">
+                                <div class="w-20 h-20 flex-shrink-0 rounded overflow-hidden">
+                                     <img src="https://www.free-materials.com/adm/wp-content/uploads/2017/07/zb-000153-.jpg" alt="パソコンを使う中高年" class="w-full h-full object-cover">
+                                </div>
+                                <div>
+                                    <h6 class="font-bold text-brand-green text-sm mb-1">中高年の学び直しにも！</h6>
+                                    <p class="text-xs text-gray-600 leading-snug">
+                                        定年後のセカンドキャリアとして農業を学びたい方も歓迎。通信制の仕組みを活かし、自分のペースで技術を習得できます。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -303,9 +333,7 @@
     <section id="faq" class="py-16 bg-gray-100">
         <div class="container mx-auto px-4 max-w-3xl">
             <h3 class="text-3xl font-bold text-center text-brand-green mb-12">よくある質問 (FAQ)</h3>
-            
             <div class="space-y-4">
-                <!-- Q1 -->
                 <div class="bg-white rounded-lg p-6 shadow-sm">
                     <h4 class="font-bold text-lg text-brand-green mb-2 flex items-start">
                         <span class="bg-brand-green text-white text-xs px-2 py-1 rounded mr-2 mt-1">Q</span>
@@ -317,9 +345,7 @@
                         高校卒業資格が必要な方は、「通信部（みらい農業コース）」を選択し、提携先の通信制高校に同時入学することで、3年間で高校卒業資格を取得することが可能です。
                     </p>
                 </div>
-
-                <!-- Q2 -->
-                <div class="bg-white rounded-lg p-6 shadow-sm">
+                 <div class="bg-white rounded-lg p-6 shadow-sm">
                     <h4 class="font-bold text-lg text-brand-green mb-2 flex items-start">
                         <span class="bg-brand-green text-white text-xs px-2 py-1 rounded mr-2 mt-1">Q</span>
                         全日制（本科）卒業後の進路は？
@@ -328,9 +354,7 @@
                         地元の農業生産法人、造園会社、食品加工工場などへの就職が中心です。実習重視のカリキュラムが評価され、多くの求人をいただいています。また、改めて高卒認定試験を受けて大学へ進学する方もいます。
                     </p>
                 </div>
-
-                <!-- Q3 -->
-                <div class="bg-white rounded-lg p-6 shadow-sm">
+                 <div class="bg-white rounded-lg p-6 shadow-sm">
                     <h4 class="font-bold text-lg text-brand-green mb-2 flex items-start">
                         <span class="bg-brand-green text-white text-xs px-2 py-1 rounded mr-2 mt-1">Q</span>
                         寮はありますか？
@@ -343,13 +367,55 @@
         </div>
     </section>
 
+    <!-- 説明会動画 -->
+    <section id="movie" class="py-12 bg-white">
+        <div class="container mx-auto px-4 max-w-4xl text-center">
+            <h3 class="text-2xl font-bold text-brand-green mb-8 font-maru">WEB学校説明会</h3>
+            <div class="relative w-full aspect-video bg-black rounded-xl overflow-hidden shadow-xl mb-4">
+                <div class="absolute inset-0 flex items-center justify-center bg-gray-800 text-white">
+                    <div class="text-center">
+                        <svg class="w-16 h-16 mx-auto mb-4 text-red-600" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                        <p class="font-bold text-lg">栃木農業学院 学校紹介ムービー (2026ver)</p>
+                        <p class="text-sm text-gray-400">YouTubeで再生</p>
+                    </div>
+                </div>
+            </div>
+             <a href="https://youtu.be/sC7A0ed9oac" target="_blank" class="inline-block text-brand-green border border-brand-green px-6 py-2 rounded-full hover:bg-brand-green hover:text-white transition">
+                YouTubeで動画を見る
+            </a>
+        </div>
+    </section>
+
+
     <!-- お問い合わせフォーム -->
-    <section id="contact" class="py-16 bg-white">
+    <section id="contact" class="py-16 bg-gray-50">
         <div class="container mx-auto px-4 max-w-2xl">
             <h3 class="text-3xl font-bold text-center text-brand-green mb-8">お問い合わせ</h3>
+            
+            <!-- LINE誘導ブロック -->
+            <div class="bg-green-50 border border-green-200 rounded-xl p-6 mb-10 flex flex-col items-center text-center shadow-sm">
+                <h4 class="text-xl font-bold text-brand-green mb-2">公式LINEで気軽に質問！</h4>
+                <p class="text-sm text-gray-600 mb-4">入試や学校生活のことなど、チャットで簡単に質問できます。</p>
+                <div class="bg-white p-2 rounded shadow mb-2">
+                    <img src="https://qr-official.line.me/gs/M_756tsnrw_GW.png?oat_content=qr" alt="公式LINE QRコード" class="w-32 h-32">
+                </div>
+                <p class="text-xs text-gray-500 mt-1">スマホで読み取って友だち追加</p>
+                <a href="#" class="mt-4 bg-brand-line text-white font-bold py-2 px-6 rounded-full text-sm hover:opacity-90 transition flex items-center">
+                    <svg class="w-5 h-5 mr-1" fill="currentColor" viewBox="0 0 24 24"><path d="M21.15 8.72c-.22-2.73-2.61-4.72-5.59-4.72-4.14 0-7.5 2.76-7.5 6.16 0 2.21 1.34 4.09 3.42 5.23-.28 1.05-1.03 2.5-1.12 2.77-.07.24.1.38.25.2.49-.6 2.58-2.3 3.53-2.92.51.13 1.03.2 1.55.2 2.98 0 5.37-2.01 5.46-4.92z"/></svg>
+                    LINEアプリで開く
+                </a>
+            </div>
+
+            <!-- メールフォームへの切り替え -->
+            <div class="relative flex py-5 items-center mb-6">
+                <div class="flex-grow border-t border-gray-300"></div>
+                <span class="flex-shrink-0 mx-4 text-gray-400 text-sm">メールフォームでのお問い合わせ</span>
+                <div class="flex-grow border-t border-gray-300"></div>
+            </div>
+
             <p class="text-center text-gray-600 mb-8 text-sm">入学相談、見学のお申し込み、その他ご質問はこちらからお送りください。</p>
             
-            <form class="space-y-6 bg-gray-50 p-8 rounded-xl shadow-inner border border-gray-100" onsubmit="event.preventDefault(); alert('お問い合わせありがとうございます。\n現在デモサイトのため送信されません。');">
+            <form class="space-y-6 bg-white p-8 rounded-xl shadow border border-gray-100" onsubmit="event.preventDefault(); alert('お問い合わせありがとうございます。\n現在デモサイトのため送信されません。');">
                 <div>
                     <label class="block text-sm font-bold text-gray-700 mb-2">お名前 <span class="text-red-500">*</span></label>
                     <input type="text" required class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:border-brand-green" placeholder="栃農 太郎">
@@ -370,7 +436,7 @@
     </section>
 
     <!-- フッター -->
-    <footer id="access" class="bg-brand-green text-white py-12 pb-24 md:pb-12"> <!-- モバイルでバナーとかぶらないようpadding調整 -->
+    <footer id="access" class="bg-brand-green text-white py-12 pb-32 md:pb-12">
         <div class="container mx-auto px-4 text-center">
             <h2 class="text-2xl font-bold mb-2">栃木農業学院</h2>
             <p class="text-brand-light text-sm mb-6">TOCHIGI AGRICULTURAL ACADEMY</p>
@@ -380,7 +446,6 @@
                 <p class="text-2xl font-bold tracking-widest font-maru">TEL: 32-4953-3319</p>
             </div>
 
-            <!-- 提携団体 -->
             <div class="mb-8 p-4 border border-white/20 inline-block rounded">
                 <p class="text-sm text-brand-light mb-2">提携団体</p>
                 <p class="font-bold">アラブ民族友好協会</p>
@@ -401,9 +466,11 @@
         </div>
     </footer>
 
-    <!-- 出願マイページ登録フロートバナー -->
-    <div class="float-banner fixed bottom-4 right-4 z-50 w-64">
-        <div class="bg-white rounded-lg shadow-2xl border-2 border-brand-accent overflow-hidden">
+    <!-- フロートバナーコンテナ (出願 & LINE) -->
+    <div class="fixed bottom-4 right-4 z-50 flex flex-col gap-3 items-end w-64 pointer-events-none">
+        
+        <!-- 出願バナー -->
+        <div class="float-banner bg-white rounded-lg shadow-2xl border-2 border-brand-accent overflow-hidden w-full relative pointer-events-auto">
             <div class="bg-brand-accent text-white text-center py-1 font-bold text-sm">
                 出願について
             </div>
@@ -413,10 +480,25 @@
                     マイページの登録はこちら！
                 </a>
             </div>
-            <!-- 閉じるボタン -->
-            <button onclick="this.parentElement.parentElement.style.display='none'" class="absolute top-0 right-0 p-1 text-white hover:text-gray-200">
+            <button onclick="this.parentElement.style.display='none'" class="absolute top-0 right-0 p-1 text-white hover:text-gray-200">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
+        </div>
+
+        <!-- 公式LINEバナー (QRコード付き・コンパクト化) -->
+        <div class="float-banner bg-white rounded-lg shadow-xl border-2 border-[#06C755] overflow-hidden w-48 relative pointer-events-auto">
+             <button onclick="this.parentElement.style.display='none'" class="absolute top-1 right-1 p-1 text-gray-400 hover:text-gray-600 z-10 bg-white/80 rounded-full">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <div class="p-3 text-center bg-green-50">
+                <p class="text-xs font-bold text-[#06C755] mb-2 flex items-center justify-center">
+                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 24 24"><path d="M21.15 8.72c-.22-2.73-2.61-4.72-5.59-4.72-4.14 0-7.5 2.76-7.5 6.16 0 2.21 1.34 4.09 3.42 5.23-.28 1.05-1.03 2.5-1.12 2.77-.07.24.1.38.25.2.49-.6 2.58-2.3 3.53-2.92.51.13 1.03.2 1.55.2 2.98 0 5.37-2.01 5.46-4.92z"/></svg>
+                    LINEで質問
+                </p>
+                <div class="bg-white p-1 inline-block rounded shadow-sm border border-green-100">
+                    <img src="https://qr-official.line.me/gs/M_756tsnrw_GW.png?oat_content=qr" alt="公式LINE QRコード" class="w-20 h-20">
+                </div>
+            </div>
         </div>
     </div>
 
@@ -426,17 +508,13 @@
             <button onclick="closeLoginModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
-            
             <div class="text-center mb-6">
                 <h3 class="text-xl font-bold text-brand-green">在学者・保護者ログイン</h3>
                 <p class="text-xs text-gray-500 mt-1">マイページへアクセスします</p>
             </div>
-
-            <!-- エラーメッセージ表示エリア -->
             <div id="login-error" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded mb-4 text-sm">
                 パスワードが違います。
             </div>
-
             <form onsubmit="handleLogin(event)">
                 <div class="mb-4">
                     <label class="block text-gray-700 text-sm font-bold mb-2">ログインID</label>
@@ -458,39 +536,16 @@
 
     <!-- スクリプト -->
     <script>
-        // スマホメニュー
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
+        menuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
 
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // ログインモーダル制御
         const loginModal = document.getElementById('login-modal');
         const loginError = document.getElementById('login-error');
-
-        function openLoginModal() {
-            loginModal.classList.remove('hidden');
-            loginError.classList.add('hidden'); // 開くたびにエラーはリセット
-        }
-
-        function closeLoginModal() {
-            loginModal.classList.add('hidden');
-        }
-
-        function handleLogin(e) {
-            e.preventDefault();
-            // 常にエラーを出す
-            loginError.classList.remove('hidden');
-        }
-
-        // モーダル外側クリックで閉じる
-        loginModal.addEventListener('click', (e) => {
-            if (e.target === loginModal) {
-                closeLoginModal();
-            }
-        });
+        function openLoginModal() { loginModal.classList.remove('hidden'); loginError.classList.add('hidden'); }
+        function closeLoginModal() { loginModal.classList.add('hidden'); }
+        function handleLogin(e) { e.preventDefault(); loginError.classList.remove('hidden'); }
+        loginModal.addEventListener('click', (e) => { if (e.target === loginModal) { closeLoginModal(); } });
     </script>
 </body>
 </html>
